@@ -1,0 +1,68 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #E9F5FF
+  BorderColor #2B6CB0
+  ArrowColor #2B6CB0
+  ActorBorderColor #2B6CB0
+  ActorFontColor #1A365D
+  FontSize 14
+  FontStyle bold
+}
+
+actor "Khách hàng" as Customer
+actor "Quản trị viên" as Admin
+actor "Cổng thanh toán" as PaymentGateway
+actor "Đơn vị vận chuyển" as Shipper
+
+rectangle "Hệ thống bán máy tính online" {
+  
+  '--- Use cases cho Khách hàng ---
+  usecase "Đăng ký / Đăng nhập" as UC_Login
+  usecase "Xem trang chủ" as UC_Home
+  usecase "Tìm kiếm & lọc sản phẩm" as UC_Search
+  usecase "Xem chi tiết sản phẩm" as UC_ViewDetail
+  usecase "Thêm sản phẩm vào giỏ hàng" as UC_AddCart
+  usecase "Xem và chỉnh sửa giỏ hàng" as UC_ViewCart
+  usecase "Thanh toán / Đặt hàng" as UC_Checkout
+  usecase "Theo dõi đơn hàng" as UC_TrackOrder
+  usecase "Đánh giá sản phẩm" as UC_Review
+  usecase "Liên hệ / Hỗ trợ" as UC_Contact
+  
+  '--- Use cases cho Quản trị viên ---
+  usecase "Đăng nhập quản trị" as UC_AdminLogin
+  usecase "Quản lý sản phẩm" as UC_ManageProduct
+  usecase "Quản lý danh mục / thương hiệu" as UC_ManageCategory
+  usecase "Quản lý đơn hàng" as UC_ManageOrder
+  usecase "Quản lý người dùng" as UC_ManageUser
+  usecase "Quản lý khuyến mãi / banner" as UC_ManagePromotion
+  usecase "Xem báo cáo thống kê" as UC_Report
+
+  '--- Mối quan hệ giữa các Use Case ---
+  UC_Checkout --> UC_Login : <<include>>
+  UC_Checkout --> PaymentGateway : <<extend>>
+  UC_ManageOrder --> Shipper : <<extend>>
+}
+
+'--- Liên kết actor và usecase ---
+Customer --> UC_Login
+Customer --> UC_Home
+Customer --> UC_Search
+Customer --> UC_ViewDetail
+Customer --> UC_AddCart
+Customer --> UC_ViewCart
+Customer --> UC_Checkout
+Customer --> UC_TrackOrder
+Customer --> UC_Review
+Customer --> UC_Contact
+
+Admin --> UC_AdminLogin
+Admin --> UC_ManageProduct
+Admin --> UC_ManageCategory
+Admin --> UC_ManageOrder
+Admin --> UC_ManageUser
+Admin --> UC_ManagePromotion
+Admin --> UC_Report
+
+@enduml

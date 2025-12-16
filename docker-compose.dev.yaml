@@ -1,0 +1,17 @@
+services:
+  computer-sales:
+    container_name: "computer-sales"
+    image: "computer-sales"
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - computer-sales
+
+networks:
+  computer-sales:

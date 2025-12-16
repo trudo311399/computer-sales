@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="900" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>
+    .box { fill:#ffffff; stroke:#2B6CB0; stroke-width:2; rx:6; }
+    .title { font: bold 14px sans-serif; fill:#0B3D91; }
+    .field { font: 12px monospace; fill:#1A2930; }
+    .fk { font-style: italic; fill:#6B7280; }
+    .link { stroke:#444; stroke-width:1.5; marker-end: url(#arrow); }
+  </style>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#444" />
+    </marker>
+  </defs>
+
+  <!-- USERS -->
+  <g id="users" transform="translate(40,40)">
+    <rect class="box" x="0" y="0" width="240" height="120"/>
+    <text class="title" x="12" y="22">users</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="62">email : text (unique)</text>
+    <text class="field" x="12" y="80">full_name : text</text>
+    <text class="field" x="12" y="98">role : text</text>
+  </g>
+
+  <!-- ORDERS -->
+  <g id="orders" transform="translate(320,40)">
+    <rect class="box" x="0" y="0" width="300" height="140"/>
+    <text class="title" x="12" y="22">orders</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="64">user_id : uuid (FK → users.id)</text>
+    <text class="field" x="12" y="84">order_number : text (unique)</text>
+    <text class="field" x="12" y="104">total_amount : numeric</text>
+    <text class="field" x="12" y="124">status : text</text>
+  </g>
+
+  <!-- ORDER_ITEMS -->
+  <g id="order_items" transform="translate(660,40)">
+    <rect class="box" x="0" y="0" width="320" height="140"/>
+    <text class="title" x="12" y="22">order_items</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="64">order_id : uuid (FK → orders.id)</text>
+    <text class="field" x="12" y="84">product_id : uuid (FK → products.id)</text>
+    <text class="field" x="12" y="104">quantity : int</text>
+    <text class="field" x="12" y="124">unit_price : numeric</text>
+  </g>
+
+  <!-- CARTS -->
+  <g id="carts" transform="translate(40,200)">
+    <rect class="box" x="0" y="0" width="240" height="100"/>
+    <text class="title" x="12" y="22">carts</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="64">user_id : uuid (FK → users.id)</text>
+    <text class="field" x="12" y="84">created_at : timestamptz</text>
+  </g>
+
+  <!-- CART_ITEMS -->
+  <g id="cart_items" transform="translate(320,200)">
+    <rect class="box" x="0" y="0" width="300" height="110"/>
+    <text class="title" x="12" y="22">cart_items</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="64">cart_id : uuid (FK → carts.id)</text>
+    <text class="field" x="12" y="84">product_id : uuid (FK → products.id)</text>
+    <text class="field" x="12" y="104">quantity : int</text>
+  </g>
+
+  <!-- CATEGORIES -->
+  <g id="categories" transform="translate(40,340)">
+    <rect class="box" x="0" y="0" width="240" height="90"/>
+    <text class="title" x="12" y="22">categories</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="64">name : text</text>
+    <text class="field" x="12" y="84">slug : text (unique)</text>
+  </g>
+
+  <!-- BRANDS -->
+  <g id="brands" transform="translate(320,340)">
+    <rect class="box" x="0" y="0" width="240" height="90"/>
+    <text class="title" x="12" y="22">brands</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="64">name : text</text>
+    <text class="field" x="12" y="84">slug : text</text>
+  </g>
+
+  <!-- PRODUCTS -->
+  <g id="products" transform="translate(600,340)">
+    <rect class="box" x="0" y="0" width="380" height="200"/>
+    <text class="title" x="12" y="22">products</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="64">sku : text (unique)</text>
+    <text class="field" x="12" y="84">name : text</text>
+    <text class="field" x="12" y="104">brand_id : uuid (FK → brands.id)</text>
+    <text class="field" x="12" y="124">category_id : uuid (FK → categories.id)</text>
+    <text class="field" x="12" y="144">price : numeric, stock : int</text>
+    <text class="field" x="12" y="164">specs : jsonb</text>
+  </g>
+
+  <!-- PRODUCT_IMAGES -->
+  <g id="product_images" transform="translate(1020,360)">
+    <rect class="box" x="0" y="0" width="240" height="90"/>
+    <text class="title" x="12" y="22">product_images</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="64">product_id : uuid (FK → products.id)</text>
+    <text class="field" x="12" y="84">url : text</text>
+  </g>
+
+  <!-- REVIEWS -->
+  <g id="reviews" transform="translate(600,560)">
+    <rect class="box" x="0" y="0" width="320" height="100"/>
+    <text class="title" x="12" y="22">reviews</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="64">product_id : uuid (FK → products.id)</text>
+    <text class="field" x="12" y="84">user_id : uuid (FK → users.id)</text>
+  </g>
+
+  <!-- COUPONS -->
+  <g id="coupons" transform="translate(40,460)">
+    <rect class="box" x="0" y="0" width="480" height="110"/>
+    <text class="title" x="12" y="22">coupons</text>
+    <text class="field" x="12" y="44">PK id : uuid</text>
+    <text class="field" x="12" y="64">code : text (unique)</text>
+    <text class="field" x="12" y="84">discount_type : text</text>
+    <text class="field" x="12" y="104">value : numeric</text>
+  </g>
+
+  <!-- CONNECTION LINES -->
+  <!-- users -> orders -->
+  <line class="link" x1="280" y1="100" x2="320" y2="100" />
+  <!-- orders -> order_items -->
+  <line class="link" x1="620" y1="100" x2="660" y2="100" />
+  <!-- carts -> cart_items -->
+  <line class="link" x1="200" y1="260" x2="320" y2="260" />
+  <!-- cart_items -> products -->
+  <line class="link" x1="620" y1="260" x2="900" y2="360" />
+  <!-- categories -> products -->
+  <line class="link" x1="280" y1="385" x2="600" y2="385" />
+  <!-- brands -> products -->
+  <line class="link" x1="560" y1="385" x2="600" y2="385" />
+  <!-- products -> product_images -->
+  <line class="link" x1="980" y1="430" x2="1020" y2="430" />
+  <!-- products -> reviews -->
+  <line class="link" x1="760" y1="540" x2="760" y2="560" />
+
+  <!-- arrowheads for key cardinalities (visual hint) -->
+  <text x="300" y="92" class="fk">1</text>
+  <text x="305" y="112" class="fk">n</text>
+  <text x="620" y="92" class="fk">1</text>
+  <text x="635" y="112" class="fk">n</text>
+
+  <!-- footnote -->
+  <text x="12" y="880" class="field">Note: PK = Primary Key, FK = Foreign Key, jsonb fields allow flexible specs.</text>
+</svg>

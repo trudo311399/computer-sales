@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface IProduct {
   id: string;
   sku: string;
@@ -19,4 +21,31 @@ export interface IProductImage {
   products: IProduct;
   url: string;
   alt_text: string | null;
+}
+
+export interface IProductCard {
+  id: string;
+  name: string;
+  price: number;
+  discountPrice?: number | null;
+  stock: number;
+  url?: string | null;
+  altText: string | null;
+  onAddToCart?: () => void;
+}
+
+export interface IProductFilters {
+  search?: string;
+  setSearch: Dispatch<SetStateAction<string | undefined>>;
+  setCategory: Dispatch<SetStateAction<string | undefined>>;
+  setBrand: Dispatch<SetStateAction<string | undefined>>;
+  setPrice: Dispatch<SetStateAction<number[] | undefined>>;
+}
+
+export interface ISearchParams {
+  page?: number;
+  search?: string;
+  category?: string;
+  brand?: string;
+  price?: number[];
 }

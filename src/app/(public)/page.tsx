@@ -1,13 +1,14 @@
-import { getProducts } from "./getProducts";
-import Header from "@/components/user/Header";
+import Link from "next/link";
+
+import { getProductsHome } from "./getProductsHome";
 import { HeroSection } from "@/components/user/HeroSection";
 import { FeatureSection } from "@/components/user/FeatureSection";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/user/ProductCard";
 
-const ProductListPage = async () => {
-  const productList = await getProducts();
+const HomePage = async () => {
+  const productList = await getProductsHome();
 
   // Mock data danh mục
   const categories = [
@@ -18,9 +19,7 @@ const ProductListPage = async () => {
   ];
 
   return (
-    <main className="min-h-screen flex flex-col">
-      <Header />
-
+    <>
       {/* 1. Hero Banner */}
       <HeroSection />
 
@@ -61,7 +60,7 @@ const ProductListPage = async () => {
             </p>
           </div>
           <Button variant="outline" className="hidden md:flex">
-            Xem tất cả
+            <Link href="/products">Xem tất cả</Link>
           </Button>
         </div>
 
@@ -84,7 +83,7 @@ const ProductListPage = async () => {
 
         <div className="mt-8 flex justify-center md:hidden">
           <Button variant="outline" className="w-full">
-            Xem tất cả sản phẩm
+            <Link href="/products">Xem tất cả sản phẩm</Link>
           </Button>
         </div>
       </section>
@@ -111,8 +110,8 @@ const ProductListPage = async () => {
           <div className="absolute right-0 top-0 w-64 h-64 bg-primary/20 blur-[100px] rounded-full pointer-events-none"></div>
         </div>
       </section>
-    </main>
+    </>
   );
 };
 
-export default ProductListPage;
+export default HomePage;

@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { IProductImage } from "@/interfaces";
 import { createClient } from "@/utils/supabase/server";
 
-const getProducts = async (): Promise<IProductImage[]> => {
+const getProductsHome = async (): Promise<IProductImage[]> => {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
 
@@ -19,4 +19,4 @@ const getProducts = async (): Promise<IProductImage[]> => {
   return (data as IProductImage[]) || [];
 };
 
-export { getProducts };
+export { getProductsHome };

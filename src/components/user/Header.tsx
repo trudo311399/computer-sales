@@ -24,7 +24,7 @@ const Header = () => {
 
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon">
-            <ShoppingCart className="h-5 w-5" />
+            <ShoppingCart className="h-5 w-5 transition-transform group-hover:scale-110" />
             <span className="sr-only">Giỏ hàng</span>
           </Button>
           <Button>Đăng nhập</Button>

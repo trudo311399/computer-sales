@@ -1,14 +1,13 @@
-import { cookies } from "next/headers";
 import { IProductImage } from "@/interfaces";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 
 const getProductsHome = async (): Promise<IProductImage[]> => {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createClient();
 
   const { data, error } = await supabase
     .from("product_images")
-    .select(`*, products (*)`).limit(12);
+    .select(`*, products (*)`)
+    .limit(12);
 
   if (error) {
     console.log("Error get product: ", error);

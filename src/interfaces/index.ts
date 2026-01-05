@@ -1,5 +1,17 @@
 import { Dispatch, SetStateAction } from "react";
 
+export interface IBrand {
+  id: string;
+  name: string;
+  slug: string;
+}
+
+export interface ICategory {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 export interface IProduct {
   id: string;
   sku: string;
@@ -48,4 +60,31 @@ export interface ISearchParams {
   category?: string;
   brand?: string;
   price?: number[];
+}
+
+export interface IProductInfo {
+  name: string;
+  description: string | null;
+  brands?: IBrand | null;
+  categories?: ICategory | null;
+  price: number;
+  discountPrice: number;
+  stock: number;
+  specs: JSON;
+}
+
+export interface IUser {
+  id: string;
+  email: string;
+  password_hash: string;
+  full_name?: string | null;
+  phone?: string | null;
+  role: string;
+}
+
+export interface IReview {
+  id: string;
+  rating: number;
+  comment: string;
+  users: IUser;
 }

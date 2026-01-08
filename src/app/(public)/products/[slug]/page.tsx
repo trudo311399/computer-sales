@@ -19,21 +19,24 @@ const DetailProductPage = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className="container mx-auto grid grid-cols-1 gap-8 py-8 md:grid-cols-2">
-      <ProductGallery url={resultDetail.url} alt_text={resultDetail.alt_text} />
+      <ProductGallery
+        url={resultDetail.url}
+        alt_text={resultDetail.alt_text || ""}
+      />
 
       <ProductInfo
-        name={resultDetail.resultDetailProduct.products.name}
-        description={resultDetail.resultDetailProduct.products.description}
-        brands={resultDetail.resultDetailProduct.products.brands}
-        categories={resultDetail.resultDetailProduct.products.categories}
-        price={resultDetail.resultDetailProduct.products.price}
-        discountPrice={resultDetail.resultDetailProduct.products.discount_price}
-        stock={resultDetail.resultDetailProduct.products.stock}
-        specs={resultDetail.resultDetailProduct.products.specs}
+        name={resultDetail.products[0]?.name || ""}
+        description={resultDetail.products[0]?.description || ""}
+        brands={resultDetail.products[0]?.brands}
+        categories={resultDetail.products[0]?.categories}
+        price={resultDetail.products[0]?.price || 0}
+        discountPrice={resultDetail.products[0]?.discount_price || 0}
+        stock={resultDetail.products[0]?.stock || 0}
+        specs={resultDetail.products[0]?.specs as Record<string, string>}
       />
 
       <div className="md:col-span-2">
-        <ProductReviews reviewList={resultReview.resultReviewList} />
+        <ProductReviews reviewList={resultReview} />
       </div>
     </div>
   );

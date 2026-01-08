@@ -22,7 +22,7 @@ export interface IProduct {
   price: number;
   discount_price: number;
   stock: number;
-  specs: JSON;
+  specs: Record<string, string>;
   created_at: string;
   updated_at: string;
 }
@@ -65,12 +65,12 @@ export interface ISearchParams {
 export interface IProductInfo {
   name: string;
   description: string | null;
-  brands?: IBrand | null;
-  categories?: ICategory | null;
+  brands: { name: string }[] | null | undefined;
+  categories: { name: string }[] | null | undefined;
   price: number;
   discountPrice: number;
   stock: number;
-  specs: JSON;
+  specs: Record<string, string>;
 }
 
 export interface IUser {
@@ -86,5 +86,25 @@ export interface IReview {
   id: string;
   rating: number;
   comment: string;
-  users: IUser;
+  product_id?: string | null;
+  users: { full_name?: string | null };
+}
+
+export interface IProductDetail {
+  name: string;
+  description?: string | null;
+  price: number;
+  discount_price?: number | null;
+  stock: number;
+  specs?: Record<string, string> | null;
+  categories?: { name: string }[] | null;
+  brands?: { name: string }[] | null;
+}
+
+export interface IDetailProduct {
+  id: string;
+  product_id?: string | null;
+  url: string;
+  alt_text?: string | null;
+  products: IProductDetail[];
 }

@@ -54,10 +54,10 @@ const ProductInfo = ({
       </Badge>
 
       {/* Brand */}
-      <p className="text-muted-foreground">{brands?.name}</p>
+      <p className="text-muted-foreground">{brands?.map((e) => e.name)}</p>
 
       {/* Category */}
-      <p className="text-muted-foreground">{categories?.name}</p>
+      <p className="text-muted-foreground">{categories?.map((e) => e.name)}</p>
 
       {/* Description */}
       <p className="text-muted-foreground">{description}</p>

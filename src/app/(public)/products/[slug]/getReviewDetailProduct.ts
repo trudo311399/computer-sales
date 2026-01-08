@@ -1,13 +1,16 @@
+import { IReview } from "@/interfaces";
 import { createClient } from "@/utils/supabase/client";
 
-const getReviewDetailProduct = async ({ slug }: { slug: string }) => {
+const getReviewDetailProduct = async ({
+  slug,
+}: {
+  slug: string;
+}): Promise<IReview[]> => {
   const supabase = createClient();
 
   const { data, error } = await supabase
     .from("reviews")
-    .select(
-      "id, product_id, users (id, email, password_hash, full_name, phone, role), rating, comment"
-    )
+    .select("id, product_id, users (full_name), rating, comment")
     .eq("product_id", slug);
 
   if (error) {
@@ -18,7 +21,7 @@ const getReviewDetailProduct = async ({ slug }: { slug: string }) => {
 
   const resultReviewList = data;
 
-  return { resultReviewList };
+  return (resultReviewList as IReview[]) || [];
 };
 
 export { getReviewDetailProduct };

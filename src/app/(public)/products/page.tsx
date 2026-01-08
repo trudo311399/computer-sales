@@ -4,7 +4,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProductFilters from "@/components/user/product/ProductFilters";
 import ProductCard from "@/components/user/product/ProductCard";
-import { ISearchParams } from "@/interfaces";
 import { getProducts } from "./getProducts";
 
 const ProductsPage = () => {
@@ -16,7 +15,7 @@ const ProductsPage = () => {
   const [brand, setBrand] = useState<string>();
   const [price, setPrice] = useState<number[]>();
   const [data, setData] = useState<any[] | null>();
-  const [totalPages, setTotalPages] = useState<number>();
+  const [totalPages, setTotalPages] = useState<number>(0);
   const [pg, setPg] = useState<number>();
 
   useEffect(() => {

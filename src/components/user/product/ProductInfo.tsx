@@ -13,6 +13,7 @@ const ProductInfo = ({
   stock,
   specs,
 }: IProductInfo) => {
+
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">{name}</h1>
@@ -54,10 +55,10 @@ const ProductInfo = ({
       </Badge>
 
       {/* Brand */}
-      <p className="text-muted-foreground">{brands?.map((e) => e.name)}</p>
+      <p className="text-muted-foreground">{brands?.name}</p>
 
       {/* Category */}
-      <p className="text-muted-foreground">{categories?.map((e) => e.name)}</p>
+      <p className="text-muted-foreground">{categories?.name}</p>
 
       {/* Description */}
       <p className="text-muted-foreground">{description}</p>

@@ -1,3 +1,4 @@
+import { LucideIcon } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 
 export interface IBrand {
@@ -107,4 +108,24 @@ export interface IDetailProduct {
   url: string;
   alt_text?: string | null;
   products: IProductDetail[];
+}
+
+export interface IStatCard {
+  title: string;
+  value: number;
+  icon: LucideIcon;
+}
+
+export interface IAdminProductTable {
+  id: string;
+  name: string;
+  price: number;
+  stock: number;
+  created_at: string;
+}
+export interface IAdminProductForm {
+  id?: string;
+  name: string;
+  price: number;
+  stock: number;
 }

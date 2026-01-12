@@ -25,14 +25,14 @@ const DetailProductPage = async ({ params }: { params: { slug: string } }) => {
       />
 
       <ProductInfo
-        name={resultDetail.products[0]?.name || ""}
-        description={resultDetail.products[0]?.description || ""}
-        brands={resultDetail.products[0]?.brands}
-        categories={resultDetail.products[0]?.categories}
-        price={resultDetail.products[0]?.price || 0}
-        discountPrice={resultDetail.products[0]?.discount_price || 0}
-        stock={resultDetail.products[0]?.stock || 0}
-        specs={resultDetail.products[0]?.specs as Record<string, string>}
+        name={resultDetail.products.name || ""}
+        description={resultDetail.products.description || ""}
+        brands={resultDetail.products.brands}
+        categories={resultDetail.products.categories}
+        price={resultDetail.products.price || 0}
+        discountPrice={resultDetail.products.discount_price || 0}
+        stock={resultDetail.products.stock || 0}
+        specs={resultDetail.products.specs as Record<string, string>}
       />
 
       <div className="md:col-span-2">

@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { UserPlus } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import { hashPassword } from "@/utils/auth/hashPassword";
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -31,12 +32,26 @@ const RegisterPage = () => {
       return;
     }
 
+    const hash = await hashPassword(password);
+
     try {
-      // tạo profile mặc định role = customer
-      await supabase.from("users").insert({
-        id: data.user?.id,
-        role: "customer",
-      });
+      const { data: user, error } = await supabase
+        .from("users")
+        .insert({
+          email: email,
+          password_hash: hash,
+          role: "customer",
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.log(error.message);
+      }
+
+      if (user) {
+        alert("Đăng ký người dùng thành công!");
+      }
     } catch (error) {
       console.log(error);
     }

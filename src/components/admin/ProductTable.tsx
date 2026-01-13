@@ -13,7 +13,8 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 
-import ProductForm from "./ProductForm";
+import ProductUpdateForm from "./ProductUpdateForm";
+import ProductCreateForm from "./ProductCreateForm";
 import ProductSearch from "./ProductSearch";
 import { IAdminProductTable } from "@/interfaces";
 import { createClient } from "@/utils/supabase/client";
@@ -25,9 +26,11 @@ const ProductTable = ({
 }) => {
   const [products, setProducts] =
     useState<IAdminProductTable[]>(initialProducts);
-  const [open, setOpen] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
+  const [openAdd, setOpenAdd] = useState(false);
   const [editing, setEditing] = useState<IAdminProductTable | null>(null);
   const [search, setSearch] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     if (products.length === 0 && initialProducts.length > 0) {
@@ -61,11 +64,8 @@ const ProductTable = ({
       .select("id, name, price, stock, created_at")
       .order("created_at", { ascending: false });
     setProducts([...(data ?? [])]);
-  };
 
-  const handleAdd = () => {
-    setOpen(true);
-    setEditing(null);
+    alert("Xóa sản phẩm thành công!");
   };
 
   return (
@@ -73,7 +73,7 @@ const ProductTable = ({
       <div className="flex items-center justify-between">
         <ProductSearch setSearch={setSearch} handleSearch={handleSearch} />
 
-        <Button onClick={() => handleAdd()} className="gap-2">
+        <Button onClick={() => setOpenAdd(true)} className="gap-2">
           <Plus className="h-4 w-4" />
           Thêm sản phẩm
         </Button>
@@ -101,7 +101,7 @@ const ProductTable = ({
                   variant="outline"
                   onClick={() => {
                     setEditing(p);
-                    setOpen(true);
+                    setOpenUpdate(true);
                   }}
                 >
                   <Pencil className="h-4 w-4" />
@@ -120,12 +120,22 @@ const ProductTable = ({
         </TableBody>
       </Table>
 
-      <ProductForm
-        open={open}
+      <ProductUpdateForm
+        open={openUpdate}
         product={editing}
         onClose={() => {
-          setOpen(false);
+          setOpenUpdate(false);
           setEditing(null);
+        }}
+      />
+
+      <ProductCreateForm
+        open={openAdd}
+        imageUrl={imageUrl}
+        setImageUrl={setImageUrl}
+        onClose={() => {
+          setOpenAdd(false);
+          setImageUrl("");
         }}
       />
     </div>

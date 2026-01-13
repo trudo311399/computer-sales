@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/utils/supabase/client";
 import { LogIn } from "lucide-react";
+import { comparePassword } from "@/utils/auth/comparePassword";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -18,23 +19,28 @@ const LoginPage = () => {
     setError(null);
 
     const supabase = createClient();
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+
+    const { data: user, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("email", email)
+      .single();
 
     if (error) {
       setError(error.message);
       return;
     }
 
-    const { data: profile } = await supabase
-      .from("users")
-      .select("role")
-      .eq("id", data.user.id)
-      .single();
+    const role = user.role;
+    const hash = user.password_hash;
 
-    if (profile?.role === "admin") {
+    const isComparePassword = await comparePassword(password, hash);
+
+    if (!isComparePassword) {
+      alert("Đăng nhập thất bại!");
+    }
+
+    if (role === "admin") {
       router.push("/admin");
     } else {
       router.push("/");

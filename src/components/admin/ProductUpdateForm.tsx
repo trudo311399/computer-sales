@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
 import { IAdminProductForm } from "@/interfaces";
 
-const ProductForm = ({
+const ProductUpdateForm = ({
   open,
   onClose,
   product,
@@ -17,9 +17,9 @@ const ProductForm = ({
   onClose: () => void;
   product?: IAdminProductForm | null;
 }) => {
-  const [name, setName] = useState(product?.name ?? "");
-  const [price, setPrice] = useState(product?.price ?? 0);
-  const [stock, setStock] = useState(product?.stock ?? 0);
+  const [name, setName] = useState(product?.name);
+  const [price, setPrice] = useState(product?.price);
+  const [stock, setStock] = useState(product?.stock);
 
   useEffect(() => {
     if (product) {
@@ -36,13 +36,8 @@ const ProductForm = ({
         .from("products")
         .update({ name, price, stock })
         .eq("id", product.id);
-    } else {
-      await supabase.from("products").insert({
-        name,
-        price,
-        stock,
-        slug: name.toLowerCase().replace(/\s+/g, "-"),
-      });
+
+      alert("Cập nhật thông tin sản phẩm thành công!");
     }
     location.reload();
   };
@@ -51,23 +46,24 @@ const ProductForm = ({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <h2 className="text-lg font-semibold">
-            {product ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}
-          </h2>
+          <h2 className="text-lg font-semibold">Cập nhật sản phẩm</h2>
         </DialogHeader>
 
         <div className="space-y-4">
+          <h3 className="text-base font-semibold m-2">Tên sản phẩm</h3>
           <Input
             placeholder="Tên sản phẩm"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+          <h3 className="text-base font-semibold m-2">Giá</h3>
           <Input
             type="number"
             placeholder="Giá"
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
           />
+          <h3 className="text-base font-semibold m-2">Tồn kho</h3>
           <Input
             type="number"
             placeholder="Tồn kho"
@@ -84,4 +80,4 @@ const ProductForm = ({
   );
 };
 
-export default ProductForm;
+export default ProductUpdateForm;
